@@ -62,6 +62,7 @@ class JujubeCluster:public Candy{
         return symbol;
     }
 };
+
 class Board{
 
     Candy* board[8][8];
@@ -286,3 +287,160 @@ void getScore(){
 
 };    
 
+class MainMenu{
+
+    protected:
+    int choice;
+    int level;
+    int totalMoves;
+
+    void displayMenu(){
+        cout<< "--------- M & I Candy Pop -----------"<< endl;
+        cout<<"1. Start Game"<< endl;
+        cout<<"2. How to Play?"<< endl;
+        cout<<"3. Exit"<< endl;
+        cout<<"----------------------------"<< endl;
+    }
+
+    void showInstructions() {
+        cout << "HOW TO PLAY?" << endl;
+        cout << "1. Match 3 or more same-colored gems either horizontally or vertically." << endl;
+        cout << "2. Only the adjacent candies will be swapped." << endl;
+        cout << "3. You'll gain points for every match (60 points per gem)." << endl;
+        cout << "4. If candies are crushed automatically (due to chain reactions), you still get the points." << endl;
+        cout << "5. The number of moves depends on the level you choose." << endl;
+        cout << "6. The harder the level, the fewer moves you get." << endl;
+        cout << "7. Game ends when all moves are used." << endl;
+    }
+    
+
+int startGame(){
+    Player player;
+    cout<<" Choose Difficulty Level: "<< endl;
+    cout<<" 1. Easy "<< endl;
+    cout<<" 2. Medium "<< endl;
+    cout<<" 3. Hard "<< endl;
+    cin>> level;
+
+    if(level==1){
+        totalMoves= 8+ rand()%5;
+    }
+    else if(level==2){
+        totalMoves= 6+ rand()%5;    
+    }
+    else if(level==3){
+        totalMoves= 4+ rand()%5;
+    }
+    else{
+        cout<< "Inavlid Level!"<< endl;
+    }
+
+    Board board;
+
+    while(true){
+    int autoCrush= board.matchAndClearAll();
+        if(autoCrush==0){break;}
+    // No score being added at intital
+}
+   
+    while (totalMoves>0)
+    {
+    board.displayBoard();
+    player.displayInfo(totalMoves);
+
+    while(true){
+        int autoCrush= board.matchAndClearAll();
+            if(autoCrush==0){break;}
+            player.updateScore(autoCrush);
+            board.displayBoard();
+            player.getScore();
+    }
+
+    int r1,c1,r2,c2;
+
+    cout<< "Enter co-ordinates of your first candy: "<< endl;
+    cin>> r1 >> c1;
+
+    cout<< "Enter co-ordinates of your second candy: "<< endl;
+    cin>> r2 >> c2;
+
+    if(!board.validatePosition(r1,c1)|| !board.validatePosition(r2,c2)|| !board.adjacentCandies(r1,c1,r2,c2)){
+        cout<< "Oops, Invalid Move!"<< endl;
+        totalMoves--;
+        continue;
+    }
+
+    board.swappingCandies(r1,c1,r2,c2);
+    int score= board.matchAndClearAll();
+
+    if(score==0){
+    cout<<" No Match Exists!"<< endl;
+    board.swappingCandies(r1,c1,r2,c2);}
+    else{
+    
+    player.updateScore(score);
+    cout<< "You Gained "<< score<< " points!"<< endl;
+    totalMoves--;
+
+    while(true){
+        int autoCrush= board.matchAndClearAll();
+            if(autoCrush==0){break;}
+            player.updateScore(autoCrush);
+            board.displayBoard();
+            player.getScore();
+    }
+}
+    }
+
+    cout<< "No moves Remaining! Game Over. :(" << endl;
+    player.getScore();    
+
+string playAgain;
+cout << "Do you want to play again? (Yes/No): ";
+cin >> playAgain;
+if(playAgain=="Yes"|| playAgain=="yes"){
+startGame();
+}
+else{
+return 0;
+}
+
+}
+    public:
+    MainMenu(){}
+
+   
+
+    void run(){
+        while(true){
+        displayMenu();
+        cout<<" Choose (1-3): "<< endl;
+        cin>> choice;
+
+        if(choice==1){
+        startGame();
+        }
+        else if(choice ==2){
+        showInstructions();
+    }
+        else if(choice==3){
+            cout<< "Exiting..."<< endl;
+            break;
+        }
+        else{
+        cout<<" Select Valid option!"<< endl;}
+    }
+}
+
+   
+
+
+};
+int main()
+{
+
+    MainMenu menu;
+    menu.run();
+  
+ return 0;
+}
