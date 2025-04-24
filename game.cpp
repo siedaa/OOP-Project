@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 #include<time.h>
 using namespace std;
 
@@ -266,9 +267,11 @@ class Player{
     int score;
 
     public:
-    Player() :score(0){
-        cout<<  "Enter your name: "<< endl;
-        cin>> playerName;
+    Player() : score(0) {
+        cout << "Enter your name: " << endl;
+        cin.ignore(); // to clear leftover newline from previous input
+        getline(cin, playerName); // allows full name input
+        loadScore(); // Load previous score if it exists
     }
 
     void displayInfo(int moves){
@@ -285,7 +288,68 @@ void getScore(){
     cout<< "Dear, "<<playerName<< " Your Score is : "<< score<< " "<< endl;
 }
 
+void loadScore(){
+    ifstream in ("player.txt" , ios::app);
+    if (!in.is_open()) {
+        cout << "NEW PLAYER! WELCOME TO OUR GAME" << endl;
+        return;
+    }
+    string name;
+    int savedScore;
+    bool found = false;
+    while (getline(in,name) ) {
+        in >> savedScore; // Read the score after the name
+        in.ignore(); // Ignore the newline character after the score
+        if (name == playerName) {
+            score = savedScore;
+            cout<< "Welcome back, " << playerName << "! Your previous score was: " << score << endl;
+          found = true;
+          break; // Exit the loop if the player is found        
+        }
+    }
+    if(!found) {
+        cout << "NEW PLAYER! WELCOME TO OUR GAME" << endl;
+    }
+    in.close();
+
+
+
+}
+
+void saveScore() {
+    ifstream in ("player.txt", ios::app);                 //opening original file to check if data is there or not
+    ofstream out ("temp.txt");                  //creating a temporary file to store the data
+    if (!in.is_open() || !out.is_open()) {
+        cout << "Error opening files for score saving!" << endl;
+        return;
+    }
+    string name;
+    int savedScore;
+    bool found = false;
+    while (getline(in,name)){                   // reading the name adn score from the file and putting the values in the "name" and "score" variables using ">>" operator
+            in>> savedScore; // Read the score after the name
+            in.ignore(); // Ignore the newline character after the score
+        if (name == playerName) {                       //if the name is same as the name of the player, then we will update the score of that player in the file
+            found = true;
+            out << playerName << " " << score << endl;  //updating the score of that player in the file
+        } else {
+            out << name << " " << savedScore << endl;   //if the name is not same , so we will copy the remaing data in to the temo.txt file to store all the players data which was in players.txt file earlier
+        }
+    }
+
+    if (!found) {
+        out << playerName << " " << score << endl;       //if the name is not found in the file,this means ,this is a new player so  we will add the name and score of that player in the file
+    }
+
+    in.close();                          //closing the input file
+    out.close();                         //closing the output file
+    remove("player.txt");                  //removing the original file
+    rename("temp.txt", "player.txt");   //renaming the temporary file to original file name
+
+
 };    
+
+};
 
 class MainMenu{
 
@@ -393,7 +457,8 @@ int startGame(){
     }
 
     cout<< "No moves Remaining! Game Over. :(" << endl;
-    player.getScore();    
+    player.getScore();  
+    player.saveScore(); // Save the score to the file  
 
 string playAgain;
 cout << "Do you want to play again? (Yes/No): ";
