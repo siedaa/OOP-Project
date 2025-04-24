@@ -292,7 +292,7 @@ void getScore(){
 }
 
 void loadScore(){
-    ifstream in ("player.txt" , ios::app);
+    ifstream in ("player.txt");
     if (!in.is_open()) {
         cout << "NEW PLAYER! WELCOME TO OUR GAME" << endl;
         return;
