@@ -2,11 +2,11 @@
 
 # M & I CandyPop!
 
-The goal of this project is to develop a simplified version of the popular Candy Crush using object-oriented programming in C++. The game will include basic functionalities such as a grid-based board, matching and clearing candies, scoring system, and a simple GUI using SFML. The project aims to apply OOP concepts effectively and introduce GUI development through SFML.
+M & I CandyPop! is a simplified version of the popular game Candy Crush, developed using Object-Oriented Programming principles in C++. The game will feature a grid-based board, candy matching and clearing logic, a scoring system, and a graphical user interface to enhance user interaction. The primary objective of this project is to demonstrate the practical application of OOP concepts in game development.
 <br>
 
-Programming Language: C++   <br>
-Library for GUI: SFML       <br>
+Programming Language: C++  <br>
+GUI: Implemented using a graphical library/tool suitable for C++  <br>
 IDE: Visual Studio Code     <br>
 
 Group Members :
