@@ -734,7 +734,7 @@ void loadGameGraphics(sf::Font &font, sf::Font font2, Board &board, Player &play
         sf::Texture bgTexture;
         sf::Sprite background;
 
-        if(!bgTexture.loadFromFile("assets/background.jpg")){
+        if(!bgTexture.loadFromFile("assets/m&i.jpg")){
         
         cout<<"Unable to load background image."<<endl;
         }
