@@ -6,7 +6,7 @@ M & I CandyPop! is a simplified version of the popular game Candy Crush, develop
 <br>
 
 Programming Language: C++  <br>
-GUI: Implemented using a graphical library/tool suitable for C++  <br>
+GUI: Implemented using SFML  <br>
 IDE: Visual Studio Code     <br>
 
 Group Members :
