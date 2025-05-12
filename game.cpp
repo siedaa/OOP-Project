@@ -319,8 +319,7 @@ MainMenu(sf::RenderWindow &window, sf::Font &font, sf::Font &font2, SoundEffects
     
     // Only recreate the window if not keeping fullscreen mode
     if (!keepFullscreen) {
-        window.create(sf::VideoMode(windowWidth, windowHeight), "M & I Candy Pop", 
-                      keepFullscreen ? sf::Style::Fullscreen : sf::Style::Default);
+        window.create(sf::VideoMode(windowWidth, windowHeight), "M & I Candy Pop", sf::Style::Default);
         window.setFramerateLimit(120);
     }
     window.setView(sf::View(sf::FloatRect(0,0,windowWidth,windowHeight)));
