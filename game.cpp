@@ -314,16 +314,12 @@ public:
 
 MainMenu(sf::RenderWindow &window, sf::Font &font, sf::Font &font2, SoundEffects &soundFx, string &playerName, bool keepFullscreen= false):window(window), font(font), font2(font2), soundFx(soundFx), playerName(playerName), totalMoves(0){
 
-  windowWidth = keepFullscreen ? sf::VideoMode::getDesktopMode().width : 1024;
-    windowHeight = keepFullscreen ? sf::VideoMode::getDesktopMode().height : 800;
-    
-    // Only recreate the window if not keeping fullscreen mode
-    if (!keepFullscreen) {
-        window.create(sf::VideoMode(windowWidth, windowHeight), "M & I Candy Pop", sf::Style::Default);
-        window.setFramerateLimit(120);
-    }
-    window.setView(sf::View(sf::FloatRect(0,0,windowWidth,windowHeight)));
-
+  sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+        windowWidth = desktop.width;
+        windowHeight = desktop.height;
+        
+window.create(sf::VideoMode(windowWidth, windowHeight), "M & I CandyPop!", sf::Style::Fullscreen );
+window.setView(sf::View(sf::FloatRect(0,0,windowWidth, windowHeight)));
 }
 
 void loadMenuGraphics(){
