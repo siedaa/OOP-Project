@@ -312,7 +312,7 @@ bool validatePlayerName(string name){
 
 public:
 
-MainMenu(sf::RenderWindow &window, sf::Font &font, sf::Font &font2, SoundEffects &soundFx, string &playerName, bool keepFullscreen= false):window(window), font(font), font2(font2), soundFx(soundFx), playerName(playerName), totalMoves(0){
+MainMenu(sf::RenderWindow &window, sf::Font &font, sf::Font &font2, SoundEffects &soundFx, string &playerName):window(window), font(font), font2(font2), soundFx(soundFx), playerName(playerName), totalMoves(0){
 
   sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
         windowWidth = desktop.width;
