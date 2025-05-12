@@ -251,13 +251,13 @@ public:
         if (enabled) errorSound.play();
     }
 
-    void setEnabled(bool state) {
-        enabled = state;
-    }
+    // void setEnabled(bool state) {
+    //     enabled = state;
+    // }
 
-    bool isEnabled() const {
-        return enabled;
-    }
+    // bool isEnabled() const {
+    //     return enabled;
+    // }
 };
 
 
